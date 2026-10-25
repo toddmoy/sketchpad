@@ -1,5 +1,44 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Editor, Tldraw } from 'tldraw'
+import {
+  DefaultToolbar,
+  DefaultToolbarContent,
+  Editor,
+  Tldraw,
+  TldrawUiMenuItem,
+  TLComponents,
+  TLUiOverrides,
+  useIsToolSelected,
+  useTools,
+} from 'tldraw'
+import { handleKey, MindMapTool, watchLayout } from './mindmap'
+
+const tools = [MindMapTool]
+
+const overrides: TLUiOverrides = {
+  tools(editor, tools) {
+    tools.mindmap = {
+      id: 'mindmap',
+      icon: 'arrow-elbow',
+      label: 'Mind map',
+      kbd: 'm',
+      onSelect: () => editor.setCurrentTool('mindmap'),
+    }
+    return tools
+  },
+}
+
+function Toolbar() {
+  const tools = useTools()
+  const isSelected = useIsToolSelected(tools.mindmap)
+  return (
+    <DefaultToolbar>
+      <TldrawUiMenuItem {...tools.mindmap} isSelected={isSelected} />
+      <DefaultToolbarContent />
+    </DefaultToolbar>
+  )
+}
+
+const components: TLComponents = { Toolbar }
 
 export function App() {
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -17,11 +56,11 @@ export function App() {
     const ids = selected.length ? selected : [...editor.getCurrentPageShapeIds()]
     if (!ids.length) return
     const { blob } = await editor.toImage(ids, { format: 'png', background: true, padding: 16, scale: 2 })
-    await window.api.copyPng(await blob.arrayBuffer())
+    await window.api?.copyPng(await blob.arrayBuffer())
     setStatus('Copied')
     setTimeout(() => {
       setStatus('')
-      window.api.hide()
+      window.api?.hide()
     }, 350)
   }, [editor])
 
@@ -31,16 +70,19 @@ export function App() {
       if (e.metaKey && e.key === 'Enter') {
         e.preventDefault()
         copy()
+      } else if (editor && handleKey(editor, e)) {
+        e.preventDefault()
+        e.stopPropagation()
       }
     }
     window.addEventListener('keydown', onKey, true)
     return () => window.removeEventListener('keydown', onKey, true)
-  }, [copy])
+  }, [copy, editor])
 
   // Each time the popup opens, be ready to draw immediately.
   useEffect(() => {
     if (!editor) return
-    window.api.onShown(() => {
+    window.api?.onShown(() => {
       if (editor.getCurrentToolId() === 'select' && !editor.getSelectedShapeIds().length) {
         editor.setCurrentTool('draw')
       }
@@ -51,9 +93,14 @@ export function App() {
     <div className="app">
       <div className="canvas">
         <Tldraw
+          tools={tools}
+          overrides={overrides}
+          components={components}
           onMount={(e) => {
             e.setCurrentTool('draw')
             setEditor(e)
+            if (import.meta.env.DEV) (window as unknown as { editor: Editor }).editor = e
+            return watchLayout(e)
           }}
         />
       </div>
