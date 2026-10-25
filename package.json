@@ -4,27 +4,46 @@
   "description": "Menu bar sketchpad for giving LLMs a drawing",
   "main": "out/main/index.js",
   "scripts": {
+    "postinstall": "node node_modules/electron/install.js",
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "start": "electron-vite preview",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "app": "electron-vite build && electron-builder --mac --dir && codesign --force --deep -s - \"dist/mac-arm64/Sketchpad.app\""
   },
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "dependencies": {
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "tldraw": "^5.5.2"
-  },
   "devDependencies": {
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "electron": "^45.0.0",
+    "electron-builder": "^26.18.0",
     "electron-vite": "^6.0.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tldraw": "^5.5.2",
     "typescript": "^7.0.2",
     "vite": "^8.3.5"
+  },
+  "build": {
+    "appId": "com.toddmoy.sketchpad",
+    "productName": "Sketchpad",
+    "files": [
+      "out/**"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "npmRebuild": false,
+    "mac": {
+      "target": "dir",
+      "identity": null,
+      "extendInfo": {
+        "LSUIElement": true
+      }
+    }
   }
 }
