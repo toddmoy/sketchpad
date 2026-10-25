@@ -1,4 +1,4 @@
-# Template: the release workflow fills in __VERSION__ and __SHA256__
+# Template: the release workflow fills in the version and sha256 placeholders
 # and pushes the result to toddmoy/homebrew-tap.
 cask "sketchpad" do
   version "__VERSION__"
