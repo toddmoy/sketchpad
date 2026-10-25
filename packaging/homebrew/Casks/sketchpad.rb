@@ -7,7 +7,7 @@ cask "sketchpad" do
   url "https://github.com/toddmoy/sketchpad/releases/download/v#{version}/Sketchpad.dmg"
   name "Sketchpad"
   desc "Menu bar sketchpad for handing drawings to LLMs"
-  homepage "https://github.com/toddmoy/sketchpad"
+  homepage "https://toddmoy.com/apps/sketchpad"
 
   depends_on macos: ">= :big_sur"
 

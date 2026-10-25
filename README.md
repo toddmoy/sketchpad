@@ -2,6 +2,8 @@
 
 A menu bar sketchpad for macOS, built on [tldraw](https://tldraw.dev). Press a hotkey, sketch, copy the drawing as a PNG and paste it into an LLM chat.
 
+More at [toddmoy.com/apps/sketchpad](https://toddmoy.com/apps/sketchpad).
+
 ## Install
 
 **Homebrew**

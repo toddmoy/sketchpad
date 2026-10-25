@@ -3,7 +3,7 @@
   "productName": "Sketchpad",
   "version": "0.1.0",
   "description": "Menu bar sketchpad for giving LLMs a drawing",
-  "homepage": "https://github.com/toddmoy/sketchpad",
+  "homepage": "https://toddmoy.com/apps/sketchpad",
   "author": "Todd Moy",
   "license": "MIT",
   "main": "out/main/index.js",
