@@ -19,3 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+This license covers Sketchpad’s own source code only. Sketchpad depends on
+tldraw (https://tldraw.dev), which is distributed under the tldraw license
+(https://tldraw.dev/community/license), not MIT. Published builds of this
+app, including forks, need a valid tldraw license key.

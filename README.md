@@ -52,4 +52,8 @@ Repo secrets: `TLDRAW_LICENSE_KEY` (optional) and `TAP_TOKEN` (a token with writ
 
 ## License
 
-MIT. tldraw is used under its [hobby license](https://tldraw.dev/community/license).
+Sketchpad’s own code is MIT: use it however you like.
+
+It’s built on [tldraw](https://tldraw.dev), which has its own [license](https://tldraw.dev/community/license) and isn’t open source. You can read and modify the tldraw code freely, but any build you publish needs your own tldraw license key: the free hobby license for non-commercial use, or a commercial license otherwise. Add the key as `VITE_TLDRAW_LICENSE_KEY` (see `.env.example`).
+
+React, Electron and Vite are MIT licensed.
