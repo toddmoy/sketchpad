@@ -1,7 +1,11 @@
 {
-  "name": "tldraw-menubar",
-  "version": "1.0.0",
+  "name": "sketchpad",
+  "productName": "Sketchpad",
+  "version": "0.1.0",
   "description": "Menu bar sketchpad for giving LLMs a drawing",
+  "homepage": "https://github.com/toddmoy/sketchpad",
+  "author": "Todd Moy",
+  "license": "MIT",
   "main": "out/main/index.js",
   "scripts": {
     "postinstall": "node node_modules/electron/install.js",
@@ -9,11 +13,10 @@
     "build": "electron-vite build",
     "start": "electron-vite preview",
     "typecheck": "tsc",
-    "app": "electron-vite build && electron-builder --mac --dir && codesign --force --deep -s - \"dist/mac-arm64/Sketchpad.app\""
+    "app": "electron-vite build && electron-builder --mac dir --universal",
+    "dist": "electron-vite build && electron-builder --mac --universal --publish never",
+    "release": "electron-vite build && electron-builder --mac --universal --publish always"
   },
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
@@ -38,12 +41,25 @@
       "output": "dist"
     },
     "npmRebuild": false,
+    "artifactName": "${productName}-${version}-${arch}.${ext}",
     "mac": {
-      "target": "dir",
-      "identity": null,
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.graphics-design",
+      "identity": "-",
+      "hardenedRuntime": false,
       "extendInfo": {
         "LSUIElement": true
       }
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "toddmoy",
+      "repo": "sketchpad",
+      "releaseType": "release"
     }
-  }
+  },
+  "packageManager": "pnpm@11.24.0"
 }

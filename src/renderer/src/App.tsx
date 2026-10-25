@@ -93,6 +93,7 @@ export function App() {
     <div className="app">
       <div className="canvas">
         <Tldraw
+          licenseKey={import.meta.env.VITE_TLDRAW_LICENSE_KEY}
           tools={tools}
           overrides={overrides}
           components={components}
