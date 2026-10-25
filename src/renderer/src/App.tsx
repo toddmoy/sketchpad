@@ -58,12 +58,45 @@ export function App() {
         />
       </div>
       <div className="bar">
-        <button onClick={clear}>Clear</button>
+        <button onClick={clear} title="Clear" aria-label="Clear">
+          <EraserIcon />
+        </button>
         <span className="hint">{status || '⌘↩ copy & close'}</span>
-        <button className="primary" onClick={copy}>
-          Copy
+        <button className="primary" onClick={copy} title="Copy (⌘↩)" aria-label="Copy">
+          <CopyIcon />
         </button>
       </div>
     </div>
+  )
+}
+
+// Lucide icons (ISC license), inlined.
+const iconProps = {
+  width: 16,
+  height: 16,
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 2,
+  strokeLinecap: 'round' as const,
+  strokeLinejoin: 'round' as const,
+}
+
+function EraserIcon() {
+  return (
+    <svg {...iconProps}>
+      <path d='m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21' />
+      <path d='M22 21H7' />
+      <path d='m5 11 9 9' />
+    </svg>
+  )
+}
+
+function CopyIcon() {
+  return (
+    <svg {...iconProps}>
+      <rect width='14' height='14' x='8' y='8' rx='2' ry='2' />
+      <path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' />
+    </svg>
   )
 }
