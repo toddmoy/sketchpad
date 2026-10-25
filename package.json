@@ -59,6 +59,9 @@
       "owner": "toddmoy",
       "repo": "sketchpad",
       "releaseType": "release"
+    },
+    "dmg": {
+      "artifactName": "Sketchpad.dmg"
     }
   },
   "packageManager": "pnpm@11.24.0"

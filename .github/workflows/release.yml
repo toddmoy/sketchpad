@@ -35,7 +35,7 @@ jobs:
           TAP_TOKEN: ${{ secrets.TAP_TOKEN }}
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          SHA=$(shasum -a 256 "dist/Sketchpad-${VERSION}-universal.dmg" | cut -d' ' -f1)
+          SHA=$(shasum -a 256 "dist/Sketchpad.dmg" | cut -d' ' -f1)
           git clone "https://x-access-token:${TAP_TOKEN}@github.com/toddmoy/homebrew-tap.git" tap
           mkdir -p tap/Casks
           sed -e "s/__VERSION__/${VERSION}/" -e "s/__SHA256__/${SHA}/" packaging/homebrew/Casks/sketchpad.rb > tap/Casks/sketchpad.rb

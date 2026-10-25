@@ -4,7 +4,7 @@ cask "sketchpad" do
   version "__VERSION__"
   sha256 "__SHA256__"
 
-  url "https://github.com/toddmoy/sketchpad/releases/download/v#{version}/Sketchpad-#{version}-universal.dmg"
+  url "https://github.com/toddmoy/sketchpad/releases/download/v#{version}/Sketchpad.dmg"
   name "Sketchpad"
   desc "Menu bar sketchpad for handing drawings to LLMs"
   homepage "https://github.com/toddmoy/sketchpad"

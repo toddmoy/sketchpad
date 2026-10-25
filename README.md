@@ -12,7 +12,7 @@ brew install --cask toddmoy/tap/sketchpad
 
 **Direct download**
 
-Grab the latest `.dmg` from [Releases](https://github.com/toddmoy/sketchpad/releases) and drag Sketchpad to Applications.
+[Download Sketchpad.dmg](https://github.com/toddmoy/sketchpad/releases/latest/download/Sketchpad.dmg) and drag Sketchpad to Applications.
 
 Sketchpad isn't notarized by Apple yet, so the first launch is blocked. Open **System Settings → Privacy & Security**, scroll down and click **Open Anyway**. (Homebrew installs skip this step.)
 
