@@ -1,5 +1,6 @@
 import { app, BrowserWindow, Tray, globalShortcut, ipcMain, clipboard, ClipboardItem, nativeImage, screen } from 'electron'
 import { join } from 'node:path'
+import { log, logFile } from './log'
 
 const HOTKEY = 'Alt+Command+D'
 
@@ -24,6 +25,16 @@ function createWindow() {
       sandbox: false,
     },
   })
+  const wc = win.webContents
+  wc.on('console-message', (e) => {
+    if (e.level === 'warning' || e.level === 'error')
+      log(e.level === 'error' ? 'error' : 'warn', `renderer: ${e.message} (${e.sourceId}:${e.lineNumber})`)
+  })
+  wc.on('render-process-gone', (_e, details) => log('error', 'renderer gone', details))
+  wc.on('unresponsive', () => log('warn', 'renderer unresponsive'))
+  wc.on('responsive', () => log('info', 'renderer responsive again'))
+  wc.on('did-fail-load', (_e, code, desc, url) => log('error', 'load failed', { code, desc, url }))
+  wc.on('preload-error', (_e, path, err) => log('error', 'preload error', path, err))
   win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
   win.on('blur', () => {
     if (!win?.webContents.isDevToolsOpened()) win?.hide()
@@ -59,7 +70,10 @@ function toggle() {
   else show()
 }
 
+app.on('child-process-gone', (_e, details) => log('error', 'child process gone', details))
+
 app.whenReady().then(() => {
+  log('info', `started v${app.getVersion()} electron ${process.versions.electron}, logging to ${logFile}`)
   app.dock?.hide()
 
   const icon = nativeImage.createFromPath(join(__dirname, '../../resources/trayTemplate.png'))
