@@ -61,7 +61,8 @@
       "releaseType": "release"
     },
     "dmg": {
-      "artifactName": "Sketchpad.dmg"
+      "artifactName": "Sketchpad.dmg",
+      "background": "build/background.tiff"
     }
   },
   "packageManager": "pnpm@11.24.0"
