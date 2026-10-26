@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
+  DefaultDashStyle,
+  DefaultFillStyle,
+  DefaultFontStyle,
+  DefaultHorizontalAlignStyle,
+  DefaultSizeStyle,
   DefaultToolbar,
   DefaultToolbarContent,
   Editor,
@@ -39,6 +44,15 @@ function Toolbar() {
 }
 
 const components: TLComponents = { Toolbar }
+
+// Starting styles for new shapes: semi fill, solid line, medium, sans, centered.
+function setDefaultStyles(editor: Editor) {
+  editor.setStyleForNextShapes(DefaultFillStyle, 'semi')
+  editor.setStyleForNextShapes(DefaultDashStyle, 'solid')
+  editor.setStyleForNextShapes(DefaultSizeStyle, 'm')
+  editor.setStyleForNextShapes(DefaultFontStyle, 'sans')
+  editor.setStyleForNextShapes(DefaultHorizontalAlignStyle, 'middle')
+}
 
 export function App() {
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -119,6 +133,7 @@ export function App() {
           overrides={overrides}
           components={components}
           onMount={(e) => {
+            setDefaultStyles(e)
             e.setCurrentTool('draw')
             setEditor(e)
             if (import.meta.env.DEV) (window as unknown as { editor: Editor }).editor = e
