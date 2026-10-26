@@ -11,10 +11,12 @@ import {
   useTools,
 } from 'tldraw'
 import { handleKey, MindMapTool, watchLayout } from './mindmap'
+import { paletteTranslations, themes } from './palette'
 
 const tools = [MindMapTool]
 
 const overrides: TLUiOverrides = {
+  translations: paletteTranslations,
   tools(editor, tools) {
     tools.mindmap = {
       id: 'mindmap',
@@ -116,6 +118,7 @@ export function App() {
         <Tldraw
           licenseKey={import.meta.env.VITE_TLDRAW_LICENSE_KEY}
           tools={tools}
+          themes={themes}
           overrides={overrides}
           components={components}
           onMount={(e) => {
