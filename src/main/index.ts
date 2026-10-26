@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Tray, globalShortcut, ipcMain, clipboard, ClipboardItem, nativeImage, screen } from 'electron'
+import { app, BrowserWindow, Menu, Tray, globalShortcut, ipcMain, clipboard, ClipboardItem, nativeImage, screen } from 'electron'
 import { join } from 'node:path'
 import { log, logFile } from './log'
 
@@ -100,6 +100,14 @@ app.whenReady().then(() => {
     return clipboard.write([new ClipboardItem({ "image/png": new Blob([data], { type: "image/png" }) })])
   })
   ipcMain.on('hide', () => win?.hide())
+  ipcMain.on('show-menu', (_e, x: number, y: number) => {
+    if (!win) return
+    Menu.buildFromTemplate([{ label: 'Quit Sketchpad', accelerator: 'Command+Q', click: () => app.quit() }]).popup({
+      window: win,
+      x: Math.round(x),
+      y: Math.round(y),
+    })
+  })
 })
 
 app.on('will-quit', () => globalShortcut.unregisterAll())

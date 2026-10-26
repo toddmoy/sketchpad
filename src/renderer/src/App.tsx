@@ -110,9 +110,21 @@ export function App() {
           <EraserIcon />
         </button>
         <span className="hint">{status || '⌘↩ copy & close'}</span>
-        <button className="primary" onClick={copy} title="Copy (⌘↩)" aria-label="Copy">
-          <CopyIcon />
-        </button>
+        <div className="group">
+          <button
+            onClick={(e) => {
+              const r = e.currentTarget.getBoundingClientRect()
+              window.api?.showMenu(r.left, r.bottom)
+            }}
+            title="More"
+            aria-label="More"
+          >
+            <MoreIcon />
+          </button>
+          <button className="primary" onClick={copy} title="Copy (⌘↩)" aria-label="Copy">
+            <CopyIcon />
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -136,6 +148,16 @@ function EraserIcon() {
       <path d='m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21' />
       <path d='M22 21H7' />
       <path d='m5 11 9 9' />
+    </svg>
+  )
+}
+
+function MoreIcon() {
+  return (
+    <svg {...iconProps}>
+      <circle cx='12' cy='12' r='1' />
+      <circle cx='19' cy='12' r='1' />
+      <circle cx='5' cy='12' r='1' />
     </svg>
   )
 }
