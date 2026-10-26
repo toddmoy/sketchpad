@@ -14,8 +14,7 @@
     "start": "electron-vite preview",
     "typecheck": "tsc",
     "app": "electron-vite build && electron-builder --mac dir --universal",
-    "dist": "electron-vite build && electron-builder --mac --universal --publish never",
-    "release": "electron-vite build && electron-builder --mac --universal --publish always"
+    "dist": "electron-vite build && electron-builder --mac --universal --publish never"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

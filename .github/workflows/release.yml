@@ -24,11 +24,23 @@ jobs:
       - name: Check tag matches package.json
         run: test "v$(node -p 'require("./package.json").version')" = "$GITHUB_REF_NAME"
 
-      - name: Build and publish release
-        run: pnpm release
+      - name: Build
+        run: pnpm dist
+        env:
+          VITE_TLDRAW_LICENSE_KEY: ${{ secrets.TLDRAW_LICENSE_KEY }}
+
+      # One step creates the release and uploads everything, so parallel uploads
+      # can't race to create it. On a re-run, replace files on the existing release.
+      - name: Publish release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_TLDRAW_LICENSE_KEY: ${{ secrets.TLDRAW_LICENSE_KEY }}
+        run: |
+          FILES=(dist/Sketchpad.dmg dist/Sketchpad.dmg.blockmap dist/Sketchpad-*.zip dist/Sketchpad-*.zip.blockmap dist/latest-mac.yml)
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "${FILES[@]}" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "${FILES[@]}" --title "$GITHUB_REF_NAME" --generate-notes --verify-tag
+          fi
 
       - name: Update Homebrew cask
         env:
