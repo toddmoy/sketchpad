@@ -107,7 +107,7 @@ export function App() {
           >
             <MoreIcon />
           </button>
-          <button className="primary" onClick={copy} title="Copy (⌘↩)" aria-label="Copy">
+          <button onClick={copy} title="Copy (⌘↩)" aria-label="Copy">
             <CopyIcon />
           </button>
         </div>
