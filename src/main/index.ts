@@ -79,7 +79,10 @@ app.whenReady().then(() => {
   const icon = nativeImage.createFromPath(join(__dirname, '../../resources/trayTemplate.png'))
   icon.setTemplateImage(true)
   tray = new Tray(icon.isEmpty() ? nativeImage.createEmpty() : icon)
-  if (icon.isEmpty()) tray.setTitle('✎')
+  if (icon.isEmpty()) {
+    log('warn', 'tray icon missing, using text fallback')
+    tray.setTitle('✎')
+  }
   tray.setToolTip(`Sketchpad (${HOTKEY.replace('Alt', '⌥').replace('Command', '⌘').replaceAll('+', '')})`)
   tray.on('click', toggle)
   tray.on('right-click', () => app.quit())

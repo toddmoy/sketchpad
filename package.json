@@ -34,7 +34,8 @@
     "appId": "com.toddmoy.sketchpad",
     "productName": "Sketchpad",
     "files": [
-      "out/**"
+      "out/**",
+      "resources/**"
     ],
     "directories": {
       "output": "dist"
