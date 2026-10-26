@@ -91,20 +91,6 @@ export function App() {
 
   return (
     <div className="app">
-      <div className="canvas">
-        <Tldraw
-          licenseKey={import.meta.env.VITE_TLDRAW_LICENSE_KEY}
-          tools={tools}
-          overrides={overrides}
-          components={components}
-          onMount={(e) => {
-            e.setCurrentTool('draw')
-            setEditor(e)
-            if (import.meta.env.DEV) (window as unknown as { editor: Editor }).editor = e
-            return watchLayout(e)
-          }}
-        />
-      </div>
       <div className="bar">
         <button onClick={clear} title="Clear" aria-label="Clear">
           <EraserIcon />
@@ -125,6 +111,20 @@ export function App() {
             <CopyIcon />
           </button>
         </div>
+      </div>
+      <div className="canvas">
+        <Tldraw
+          licenseKey={import.meta.env.VITE_TLDRAW_LICENSE_KEY}
+          tools={tools}
+          overrides={overrides}
+          components={components}
+          onMount={(e) => {
+            e.setCurrentTool('draw')
+            setEditor(e)
+            if (import.meta.env.DEV) (window as unknown as { editor: Editor }).editor = e
+            return watchLayout(e)
+          }}
+        />
       </div>
     </div>
   )
