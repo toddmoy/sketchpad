@@ -70,6 +70,11 @@ function toggle() {
   else show()
 }
 
+// Opening the app again (Raycast, Spotlight, Finder) should bring up the popup.
+if (!app.requestSingleInstanceLock()) app.quit()
+app.on('second-instance', show)
+app.on('activate', show)
+
 app.on('child-process-gone', (_e, details) => log('error', 'child process gone', details))
 
 app.whenReady().then(() => {
@@ -88,6 +93,7 @@ app.whenReady().then(() => {
   tray.on('right-click', () => app.quit())
 
   createWindow()
+  win?.once('ready-to-show', show)
   globalShortcut.register(HOTKEY, toggle)
 
   ipcMain.handle('copy-png', (_e, data: ArrayBuffer) => {
